@@ -3,30 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Android.Provider.ContactsContract.CommonDataKinds;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace DCProyectoApuntes.Models
 {
     internal class DCNote
     {
-        public string Filename { get; set; }
-        public string Text { get; set; }
-        public DateTime Date { get; set; }
+        public string DCFilename { get; set; }
+        public string DCText { get; set; }
+        public DateTime DCDate { get; set; }
 
         public DCNote()
         {
-            Filename = $"{Path.GetRandomFileName()}.notes.txt";
-            Date = DateTime.Now;
-            Text = "";
+            DCFilename = $"{Path.GetRandomFileName()}.notes.txt";
+            DCDate = DateTime.Now;
+            DCText = "";
         }
-        public void Save() =>
-            File.WriteAllText(System.IO.Path.Combine(FileSystem.AppDataDirectory, Filename), Text);
+        public void DCSave() =>
+            File.WriteAllText(System.IO.Path.Combine(FileSystem.AppDataDirectory, DCFilename), DCText);
 
-        public void Delete() =>
-            File.Delete(System.IO.Path.Combine(FileSystem.AppDataDirectory, Filename));
+        public void DCDelete() =>
+            File.Delete(System.IO.Path.Combine(FileSystem.AppDataDirectory, DCFilename));
 
-        public static DCNote Load(string filename)
+        public static DCNote DCLoad(string filename)
         {
             filename = System.IO.Path.Combine(FileSystem.AppDataDirectory, filename);
 
@@ -36,13 +35,13 @@ namespace DCProyectoApuntes.Models
             return
                 new()
                 {
-                    Filename = Path.GetFileName(filename),
-                    Text = File.ReadAllText(filename),
-                    Date = File.GetLastWriteTime(filename)
+                    DCFilename = Path.GetFileName(filename),
+                    DCText = File.ReadAllText(filename),
+                    DCDate = File.GetLastWriteTime(filename)
                 };
         }
 
-        public static IEnumerable<DCNote> LoadAll()
+        public static IEnumerable<DCNote> DCLoadAll()
         {
             // Get the folder where the notes are stored.
             string appDataPath = FileSystem.AppDataDirectory;
@@ -54,10 +53,10 @@ namespace DCProyectoApuntes.Models
                     .EnumerateFiles(appDataPath, "*.notes.txt")
 
                     // Each file name is used to load a note
-                    .Select(filename => DCNote.Load(Path.GetFileName(filename)))
+                    .Select(filename => DCNote.DCLoad(Path.GetFileName(filename)))
 
                     // With the final collection of notes, order them by date
-                    .OrderByDescending(note => note.Date);
+                    .OrderByDescending(note => note.DCDate);
         }
 
 

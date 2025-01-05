@@ -10,18 +10,18 @@ namespace DCProyectoApuntes.ViewModels
 {
     internal class DCAboutViewModel
     {
-        public string Title => AppInfo.Name;
-        public string Version => AppInfo.VersionString;
-        public string MoreInfoUrl => "https://aka.ms/maui";
-        public string Message => "This app is written in XAML and C# with .NET MAUI.";
-        public ICommand ShowMoreInfoCommand { get; }
+        public string DCTitle => AppInfo.Name;
+        public string DCVersion => AppInfo.VersionString;
+        public string DCMoreInfoUrl => "https://aka.ms/maui";
+        public string DCMessage => "This app is written in XAML and C# with .NET MAUI.";
+        public ICommand DCShowMoreInfoCommand { get; }
 
         public DCAboutViewModel()
         {
-            ShowMoreInfoCommand = new AsyncRelayCommand(ShowMoreInfo);
+            DCShowMoreInfoCommand = new AsyncRelayCommand(DCShowMoreInfo);
         }
 
-        async Task ShowMoreInfo() =>
-            await Launcher.Default.OpenAsync(MoreInfoUrl);
+        async Task DCShowMoreInfo() =>
+            await Launcher.Default.OpenAsync(DCMoreInfoUrl);
     }
 }
